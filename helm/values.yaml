@@ -13,11 +13,19 @@ controller:
         allowAnonymousRead: false
 
   installPlugins:
-    - kubernetes:3802.vb_b_600831fcb_3
-    - git:4.11.5
+    - kubernetes:3845.va_9823979a_744
+    - kubernetes-client-api:6.3.1-206.v76d3b_6b_14db_b
+    - git:5.0.0
     - configuration-as-code:1569.vb_72405b_80249
     - bitbucket:223.vd12f2bca5430
     - aws-codecommit-jobs:0.3.0
+    - gitlab-plugin:1.5.35
+    - github
+    - slack:616.v03b_1e98d13dd
+    - prometheus:2.0.11
+    - cloudbees-disk-usage-simple:178.v1a_4d2f6359a_8
+    - workflow-aggregator:590.v6a_d052e5a_a_b_5
+    - dependency-check-jenkins-plugin:5.2.1
     - gitlab-plugin:1.5.35
     - github:1.34.4
     - slack:616.v03b_1e98d13dd
@@ -81,6 +89,9 @@ agent:
     requests:
       cpu: 200m
       memory: 500Mi
+  envVars:
+    - name: JAVA_ARGS
+      value: -Djenkins.branch.WorkspaceLocatorImpl.MAX_LENGTH=50
 
 persistence:
   storageClass: ${storage_class_name}

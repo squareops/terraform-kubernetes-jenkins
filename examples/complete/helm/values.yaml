@@ -21,11 +21,6 @@ controller:
       cpu: 100m
       memory: 1300Mi
 
-  prometheus:
-    enabled: true
-    serviceMonitorAdditionalLabels:
-      release: "prometheus-operator"
-
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
@@ -55,28 +50,3 @@ agent:
      command: "sleep"
      args: "infinity"
      privileged: true
-
-
-backup:
-  enabled: false
-  componentName: "backup"
-  schedule: "* * * * *"
-  labels: {}
-  serviceAccount:
-    create: true
-    name: jenkins-backup
-    annotations:
-      ""
-  env:
-  # Example environment variable required for AWS credentials chain
-  - name: "AWS_REGION"
-    value: ""
-  resources:
-    requests:
-      memory: 1Gi
-      cpu: 1
-    limits:
-      memory: 1Gi
-      cpu: 1
-  destination: ""
-  onlyJobs: false

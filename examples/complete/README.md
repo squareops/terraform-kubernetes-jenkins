@@ -38,6 +38,5 @@ No inputs.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_jenkins_password"></a> [jenkins\_password](#output\_jenkins\_password) | password |
-| <a name="output_jenkins_user"></a> [jenkins\_user](#output\_jenkins\_user) | user |
+| <a name="output_jenkins_credentials"></a> [jenkins\_credentials](#output\_jenkins\_credentials) | Jenkins\_Info |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
