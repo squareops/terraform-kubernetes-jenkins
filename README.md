@@ -70,8 +70,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_jenkins_password"></a> [jenkins\_password](#output\_jenkins\_password) | password |
-| <a name="output_jenkins_user"></a> [jenkins\_user](#output\_jenkins\_user) | user |
+| <a name="output_jenkins"></a> [jenkins](#output\_jenkins) | Jenkins\_Info |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contribution & Issue Reporting

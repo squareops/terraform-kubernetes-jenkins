@@ -8,12 +8,11 @@ resource "kubernetes_namespace" "jenkins" {
 resource "helm_release" "jenkins" {
   depends_on = [kubernetes_namespace.jenkins]
   name       = "jenkins"
-  repository = "https://charts.jenkins.io/"
   chart      = "jenkins"
-  namespace  = var.namespace
   timeout    = 600
   version    = var.chart_version
-
+  namespace  = var.namespace
+  repository = "https://charts.jenkins.io/"
   values = [
     templatefile("${path.module}/helm/values.yaml", {
       hostname            = var.jenkins_config.hostname

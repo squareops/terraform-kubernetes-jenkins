@@ -1,9 +1,8 @@
-output "jenkins_password" {
-  description = "password"
-  value       = nonsensitive(data.kubernetes_secret.jenkins.data["jenkins-admin-password"])
-}
-
-output "jenkins_user" {
-  description = "user"
-  value       = nonsensitive(data.kubernetes_secret.jenkins.data["jenkins-admin-user"])
+output "jenkins" {
+  description = "Jenkins_Info"
+  value = {
+    username = nonsensitive(data.kubernetes_secret.jenkins.data["jenkins-admin-user"]),
+    password = nonsensitive(data.kubernetes_secret.jenkins.data["jenkins-admin-password"]),
+    url      = var.jenkins_config.hostname
+  }
 }
