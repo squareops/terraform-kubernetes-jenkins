@@ -1,6 +1,4 @@
 ## JENKINS
-
-
 variable "jenkins_config" {
   type = any
   default = {
