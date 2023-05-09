@@ -14,6 +14,12 @@ Monitoring and logging tools should be used to keep track of Jenkins' health and
 ## Important Notes:
 This module is compatible with EKS version 1.23, which is great news for users deploying the module on an EKS cluster running that version. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
 
+## Supported Versions Table:
+
+| Resources             |  Helm Chart Version           |     K8s supported version   |      
+| :-----:              | :-----:                       |         :---                | 
+| Jenkins               | **4.2.15**                     |    1.23,1.24,1.25           |
+
 ## Usage Example
 
 ```hcl
