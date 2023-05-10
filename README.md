@@ -12,7 +12,7 @@ To use this module, you will need to ensure that your cluster is set up correctl
 Monitoring and logging tools should be used to keep track of Jenkins' health and performance inside the cluster, and to identify any issues that may arise.
 
 ## Important Notes:
-This module is compatible with EKS version 1.23, which is great news for users deploying the module on an EKS cluster running that version. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
+This module is compatible with EKS version 1.23,1.24,1.25 which is great news for users deploying the module on an EKS cluster running that version. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
 
 ## Supported Versions:
 
