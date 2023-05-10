@@ -1,5 +1,5 @@
 locals {
-  name        = "mysql"
+  name        = "jenkins"
   region      = "us-east-2"
   environment = "prod"
   additional_tags = {
