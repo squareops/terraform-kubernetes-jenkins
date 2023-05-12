@@ -12,18 +12,25 @@ To use this module, you will need to ensure that your cluster is set up correctl
 Monitoring and logging tools should be used to keep track of Jenkins' health and performance inside the cluster, and to identify any issues that may arise.
 
 ## Important Notes:
-This module is compatible with EKS version 1.23, which is great news for users deploying the module on an EKS cluster running that version. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
+This module is compatible with EKS version 1.23,1.24,1.25 which is great news for users deploying the module on an EKS cluster running that version. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
+
+## Supported Versions:
+
+|  Jenkins Helm Chart Version    |     K8s supported version   |  
+| :-----:                       |         :---                |
+| **4.2.15**                     |    **1.23,1.24,1.25**           |
+
 
 ## Usage Example
 
 ```hcl
 module "jenkins" {
-  source = "../.."
+  source        = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
   jenkins_config = {
     hostname            = "jenkin.squareops.in"
+    values_yaml         = ""
     storage_class_name  = "storage_name"
     jenkins_volume_size = "50Gi"
-    values_yaml         = ""
   }
 }
 
@@ -62,9 +69,9 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Chart Version | `string` | `"4.2.15"` | no |
-| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Jenkins configurations | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
-| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace name | `string` | `"jenkins"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"4.2.15"` | no |
+| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Jenkins deployment will be deployed. | `string` | `"jenkins"` | no |
 
 ## Outputs
 

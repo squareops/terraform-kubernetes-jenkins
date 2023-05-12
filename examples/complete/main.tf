@@ -1,15 +1,20 @@
 locals {
+  name        = "jenkins"
   region      = "us-east-2"
-  name        = "skaf"
   environment = "prod"
+  additional_tags = {
+    Owner      = "organization_name"
+    Expires    = "Never"
+    Department = "Engineering"
+  }
 }
 
 module "jenkins" {
-  source = "../.."
+  source = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
   jenkins_config = {
-    hostname            = "jenkin.ref.dev.skaf.squareops.in"
+    hostname            = "jenkin.squareops.in"
     values_yaml         = file("./helm/values.yaml")
-    storage_class_name  = "gp2"
+    storage_class_name  = "infra-service-sc"
     jenkins_volume_size = "10Gi"
   }
 }

@@ -1,6 +1,3 @@
-## JENKINS
-
-
 variable "jenkins_config" {
   type = any
   default = {
@@ -9,17 +6,17 @@ variable "jenkins_config" {
     jenkins_volume_size = ""
     values_yaml         = ""
   }
-  description = "Jenkins configurations"
+  description = "Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values."
 }
 
 variable "namespace" {
   type        = string
   default     = "jenkins"
-  description = "Namespace name"
+  description = "Name of the Kubernetes namespace where the Jenkins deployment will be deployed."
 }
 
 variable "chart_version" {
   type        = string
   default     = "4.2.15"
-  description = "Chart Version"
+  description = "Version of the Jenkins chart that will be used to deploy Jenkins application."
 }
