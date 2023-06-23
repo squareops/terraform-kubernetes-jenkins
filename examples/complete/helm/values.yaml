@@ -31,22 +31,3 @@ controller:
               values:
               - "true"
 
-additionalAgents:
- base:
-   podName: base
-   customJenkinsLabels: base
-   sideContainerName: base
-   image: "squareops01/kaniko"
-   tag: "1.8"
-   command: "sleep"
-   args: "infinity"
-   TTYEnabled: true
-
-agent:
-  additionalContainers:
-   - sideContainerName: kaniko
-     image: gcr.io/kaniko-project/executor
-     tag: debug
-     command: "sleep"
-     args: "infinity"
-     privileged: true
