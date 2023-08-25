@@ -15,7 +15,7 @@ controller:
   installPlugins:
     - kubernetes:3845.va_9823979a_744
     - kubernetes-client-api:6.3.1-206.v76d3b_6b_14db_b
-    - git:5.0.1
+    - git:5.0.2
     - configuration-as-code:1625.v27444588cc3d
     - bitbucket:223.vd12f2bca5430
     - aws-codecommit-jobs:0.3.0

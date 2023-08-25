@@ -50,3 +50,47 @@ The Policy required to deploy this module:
     ]
 }
 ```
+## Azure Role Permissions
+
+```hcl
+{
+    "Name": "AzureJenkinsRole",
+    "Actions": [
+        "Microsoft.Authorization/*/read",
+        "Microsoft.Authorization/*/write",
+        "Microsoft.Authorization/elevateAccess/Action",
+        "Microsoft.Authorization/policies/read",
+        "Microsoft.Authorization/policies/write",
+        "Microsoft.Authorization/policyAssignments/read",
+        "Microsoft.Authorization/policyAssignments/write",
+        "Microsoft.Authorization/roleAssignments/read",
+        "Microsoft.Authorization/roleAssignments/write",
+        "Microsoft.Authorization/roleDefinitions/read",
+        "Microsoft.Authorization/roleDefinitions/write",
+        "Microsoft.ManagedIdentity/userAssignedIdentities/read",
+        "Microsoft.ManagedIdentity/userAssignedIdentities/write",
+        "Microsoft.KeyVault/vaults/read",
+        "Microsoft.KeyVault/vaults/write",
+        "Microsoft.KeyVault/vaults/keys/read",
+        "Microsoft.KeyVault/vaults/keys/write",
+        "Microsoft.KeyVault/vaults/secrets/read",
+        "Microsoft.KeyVault/vaults/secrets/write",
+        "Microsoft.KeyVault/vaults/certificates/read",
+        "Microsoft.KeyVault/vaults/certificates/write"
+    ],
+    "NotActions": [],
+    "AssignableScopes": ["/subscriptions/{subscriptionId}"]
+}
+```
+
+## Google IAM Permissions
+
+```hcl
+permissions = [
+    "roles/container.viewer",
+    "role": "roles/iam.securityReviewer",
+    "role": "roles/iam.roleAdmin",
+    "role": "roles/secretmanager.secretAccessor",
+    "role": "roles/secretmanager.secretVersionManager"
+]
+```

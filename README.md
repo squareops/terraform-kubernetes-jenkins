@@ -12,13 +12,13 @@ To use this module, you will need to ensure that your cluster is set up correctl
 Monitoring and logging tools should be used to keep track of Jenkins' health and performance inside the cluster, and to identify any issues that may arise.
 
 ## Important Notes:
-This module is compatible with EKS version 1.23,1.24,1.25 which is great news for users deploying the module on an EKS cluster running that version. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
+This module is compatible with EKS, AKS & GKE which is great news for users deploying the module on an AWS, Azure & GCP cloud. Review the module's documentation, meet specific configuration requirements, and test thoroughly after deployment to ensure everything works as expected.
 
 ## Supported Versions:
 
-|  Jenkins Helm Chart Version    |     K8s supported version   |  
+|  Jenkins Helm Chart Version    |     K8s supported version (EKS, AKS & GKE)  |  
 | :-----:                       |         :---                |
-| **4.2.15**                     |    **1.23,1.24,1.25**           |
+| **4.2.15**                     |    **1.23,1.24,1.25,1.26,1.27**           |
 
 
 ## Usage Example
@@ -27,7 +27,7 @@ This module is compatible with EKS version 1.23,1.24,1.25 which is great news fo
 module "jenkins" {
   source        = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
   jenkins_config = {
-    hostname            = "jenkin.squareops.in"
+    hostname            = "jenkins.squareops.in"
     values_yaml         = ""
     storage_class_name  = "storage_name"
     jenkins_volume_size = "50Gi"
@@ -35,7 +35,9 @@ module "jenkins" {
 }
 
 ```
-Refer [examples](https://github.com/sq-ia/terraform-kubernetes-jenkins/tree/main/examples/complete) for more details.
+Refer [AWS examples](https://github.com/sq-ia/terraform-kubernetes-jenkins/tree/main/examples/complete/aws) for more details.
+Refer [Azure examples](https://github.com/sq-ia/terraform-kubernetes-jenkins/tree/main/examples/complete/azure) for more details.
+Refer [GCP examples](https://github.com/sq-ia/terraform-kubernetes-jenkins/tree/main/examples/complete/gcp) for more details.
 
 ## IAM Permissions
 The required IAM permissions to create resources from this module can be found [here](https://github.com/sq-ia/terraform-kubernetes-jenkins/blob/main/IAM.md)
