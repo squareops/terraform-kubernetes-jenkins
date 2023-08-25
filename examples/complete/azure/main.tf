@@ -10,7 +10,7 @@ locals {
 }
 
 module "jenkins" {
-  source = "../../../"
+  source = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
   jenkins_config = {
     hostname            = "jenkins.squareops.in"
     values_yaml         = file("./helm/values.yaml")
