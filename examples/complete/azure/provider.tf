@@ -3,8 +3,8 @@ provider "azurerm" {
 }
 
 data "azurerm_kubernetes_cluster" "primary" {
-  name                = "prod-skaf-aks"
-  resource_group_name = "prod-skaf-rg"
+  name                = ""
+  resource_group_name = ""
 }
 
 provider "kubernetes" {
