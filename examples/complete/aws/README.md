@@ -1,12 +1,5 @@
-## Jenkins Example
-![squareops_avatar]
-
-[squareops_avatar]: https://squareops.com/wp-content/uploads/2022/12/squareops-logo.png
-
-### [SquareOps Technologies](https://squareops.com/) Your DevOps Partner for Accelerating cloud journey.
-<br>
-This example will be very useful for users who are new to a module and want to quickly learn how to use it. By reviewing the examples, users can gain a better understanding of how the module works, what features it supports, and how to customize it to their specific needs.
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+# AWS Jenkins Terraform Kubernetes Module
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 No requirements.
@@ -16,8 +9,6 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
-| <a name="provider_azure"></a> [azure](#provider\_azure) | n/a |
-| <a name="provider_gcp"></a> [gcp](#provider\_gcp) | n/a |
 
 ## Modules
 
@@ -41,4 +32,4 @@ No inputs.
 | Name | Description |
 |------|-------------|
 | <a name="output_jenkins_credentials"></a> [jenkins\_credentials](#output\_jenkins\_credentials) | Jenkins\_Info |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
