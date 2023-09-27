@@ -1,9 +1,9 @@
 controller:
   installPlugins:
-    - kubernetes:3845.va_9823979a_744
-    - kubernetes-client-api:6.3.1-206.v76d3b_6b_14db_b
-    - git:5.0.2
-    - configuration-as-code:1625.v27444588cc3d
+    - kubernetes:4029.v5712230ccb_f8
+    - kubernetes-client-api:6.8.1-224.vd388fca_4db_3b_
+    - git:5.2.0
+    - configuration-as-code:1670.v564dc8b_982d0
     - bitbucket:223.vd12f2bca5430
     - aws-codecommit-jobs:0.3.0
     - gitlab-plugin:1.5.35
