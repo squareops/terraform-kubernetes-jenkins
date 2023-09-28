@@ -19,6 +19,7 @@ This module is compatible with EKS, AKS & GKE which is great news for users depl
 |  Jenkins Helm Chart Version    |     K8s supported version (EKS, AKS & GKE)  |  
 | :-----:                       |         :---                |
 | **4.2.15**                     |    **1.23,1.24,1.25,1.26,1.27**           |
+| **4.5.0**                     |    **1.23,1.24,1.25,1.26,1.27**           |
 
 
 ## Usage Example
