@@ -17,6 +17,6 @@ variable "namespace" {
 
 variable "chart_version" {
   type        = string
-  default     = "4.6.6"
+  default     = "4.6.5"
   description = "Version of the Jenkins chart that will be used to deploy Jenkins application."
 }
