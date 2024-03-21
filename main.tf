@@ -9,7 +9,7 @@ resource "helm_release" "jenkins" {
   name       = "jenkins"
   chart      = "jenkins"
   timeout    = 600
-  version    = var.chart_version
+  version    = var.helm_chart_version
   namespace  = var.namespace
   repository = "https://charts.jenkins.io/"
   values = [
