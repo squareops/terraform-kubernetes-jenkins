@@ -1,7 +1,7 @@
 locals {
   name        = "jenkins"
   region      = "us-east-2"
-  environment = "prod"
+  environment = "dev"
   additional_tags = {
     Owner      = "organization_name"
     Expires    = "Never"
@@ -10,9 +10,9 @@ locals {
 }
 
 module "jenkins" {
-  source = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
+  source = "../../../"
   jenkins_config = {
-    hostname            = "jenkin.squareops.in"
+    hostname            = "jenkins.ldc.squareops.in"
     values_yaml         = file("./helm/values.yaml")
     storage_class_name  = "infra-service-sc"
     jenkins_volume_size = "10Gi"
