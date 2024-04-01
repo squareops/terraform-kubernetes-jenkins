@@ -1,7 +1,7 @@
 locals {
   name        = "jenkins"
-  region      = "us-east-2"
-  environment = "prod"
+  region      = "ap-northeast-1"
+  environment = "stg"
   additional_tags = {
     Owner      = "organization_name"
     Expires    = "Never"
