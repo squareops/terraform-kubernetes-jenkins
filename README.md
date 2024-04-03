@@ -72,7 +72,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"4.2.15"` | no |
+| <a name="input_helm_chart_version"></a> [helm\_chart\_version](#input\_helm\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"5.1.3"` | no |
 | <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Jenkins deployment will be deployed. | `string` | `"jenkins"` | no |
 
@@ -80,7 +80,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_jenkins"></a> [jenkins](#output\_jenkins) | Jenkins\_Info |
+| <a name="output_jenkins"></a> [jenkins](#output\_jenkins) | Information about the Jenkins instance, including the username, password, and URL. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contribution & Issue Reporting

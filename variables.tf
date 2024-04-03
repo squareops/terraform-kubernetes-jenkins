@@ -15,8 +15,8 @@ variable "namespace" {
   description = "Name of the Kubernetes namespace where the Jenkins deployment will be deployed."
 }
 
-variable "chart_version" {
+variable "helm_chart_version" {
   type        = string
-  default     = "4.5.0"
+  default     = "5.1.3"
   description = "Version of the Jenkins chart that will be used to deploy Jenkins application."
 }
