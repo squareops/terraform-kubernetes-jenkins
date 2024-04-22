@@ -20,6 +20,7 @@ This module is compatible with EKS, AKS & GKE which is great news for users depl
 | :-----:                       |         :---                |
 | **4.2.15**                     |    **1.23,1.24,1.25,1.26,1.27**           |
 | **4.5.0**                     |    **1.23,1.24,1.25,1.26,1.27**           |
+| **5.1.3**                      |   **1.23,1.24,1.25,1.26,1.27,1.28,1.29**
 
 
 ## Usage Example
@@ -72,7 +73,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"4.2.15"` | no |
+| <a name="input_additional_aws_tags"></a> [additional\_aws\_tags](#input\_additional\_aws\_tags) | Additional tags to be applied to resources | `map(string)` | `{}` | no |
+| <a name="input_helm_chart_version"></a> [helm\_chart\_version](#input\_helm\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"5.1.3"` | no |
 | <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Jenkins deployment will be deployed. | `string` | `"jenkins"` | no |
 
@@ -80,7 +82,7 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_jenkins"></a> [jenkins](#output\_jenkins) | Jenkins\_Info |
+| <a name="output_jenkins"></a> [jenkins](#output\_jenkins) | Information about the Jenkins instance, including the username, password, and URL. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Contribution & Issue Reporting
