@@ -16,5 +16,9 @@ module "jenkins" {
     values_yaml         = file("./helm/values.yaml")
     storage_class_name  = "infra-service-sc"
     jenkins_volume_size = "10Gi"
+    backup              = true
+    backup_bucket_name  = "jenkins-backup-bucket"
+    restore_backup      = false
+    restore_object_path = "s3://jenkins-backup-bucket/2024-06-18/backup.zip"
   }
 }

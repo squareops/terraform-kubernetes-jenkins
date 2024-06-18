@@ -32,6 +32,10 @@ module "jenkins" {
     values_yaml         = ""
     storage_class_name  = "storage_name"
     jenkins_volume_size = "50Gi"
+    backup              = true
+    backup_bucket_name  = "jenkins-backup-bucket"
+    restore_backup      = false
+    restore_object_path = "s3://jenkins-backup-bucket/2024-06-18/backup.zip"
   }
 }
 
@@ -73,7 +77,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"4.2.15"` | no |
-| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
+| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>, <br> backup" : "" <br>, <br> "backup_bucket_name" : ""<br>, <br>restore_backup" : ""<br>, <br>restore_object_path": ""<br>}</pre> | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Jenkins deployment will be deployed. | `string` | `"jenkins"` | no |
 
 ## Outputs
