@@ -5,7 +5,7 @@ variable "jenkins_config" {
     storage_class_name  = ""
     jenkins_volume_size = ""
     values_yaml         = ""
-    backup              = true
+    enable_backup       = true
     backup_bucket_name  = ""
     restore_backup      = false 
     restore_object_path = ""  # Enter S3 object URI

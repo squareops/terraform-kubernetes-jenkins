@@ -35,7 +35,7 @@ data "kubernetes_secret" "jenkins" {
 #To use this please create a S3 bucket and pass the name of the bucket along with other varaibles.
 resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
   depends_on = [kubernetes_namespace.jenkins]
-  count = var.jenkins_config.backup  ? 1 : 0
+  count = var.jenkins_config.enable_backup  ? 1 : 0
   metadata {
     name      = "jenkins-backup-cron"
     namespace = "jenkins"
