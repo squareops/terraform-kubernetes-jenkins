@@ -7,8 +7,8 @@ variable "jenkins_config" {
     values_yaml         = ""
     enable_backup       = true
     backup_bucket_name  = ""
-    restore_backup      = false 
-    restore_object_path = ""  # Enter S3 object URI
+    restore_backup      = false
+    restore_object_path = "" # Enter S3 object URI
   }
   description = "Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values."
 }

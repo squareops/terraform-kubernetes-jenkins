@@ -31,5 +31,3 @@ zip -r /backup/jenkins_home_backup.zip /var/jenkins_home
 
 #Upload the zip file to AWS S3 bucket for backup
 aws s3 cp /backup/jenkins_home_backup.zip s3://${backup_bucket_name}/$(date '+%Y-%m-%d')/jenkins_home_backup.zip
-
-

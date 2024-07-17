@@ -35,13 +35,13 @@ data "kubernetes_secret" "jenkins" {
 #To use this please create a S3 bucket and pass the name of the bucket along with other varaibles.
 resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
   depends_on = [kubernetes_namespace.jenkins]
-  count = var.jenkins_config.enable_backup  ? 1 : 0
+  count      = var.jenkins_config.enable_backup ? 1 : 0
   metadata {
     name      = "jenkins-backup-cron"
     namespace = "jenkins"
   }
   spec {
-    schedule = "0 6 * * *"  # Runs the job every day at 6 AM
+    schedule = "0 6 * * *" # Runs the job every day at 6 AM
     job_template {
       metadata {
         name = "jenkins-backup-job"
@@ -54,10 +54,10 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
               name    = "jenkins-backup"
               image   = "amazonlinux"
               command = ["/bin/bash", "-c"]
-              args = [ 
+              args = [
                 "${templatefile("${path.module}/backup.sh", {
-                backup_bucket_name = var.jenkins_config.backup_bucket_name
-              })}" ]
+                  backup_bucket_name = var.jenkins_config.backup_bucket_name
+              })}"]
               volume_mount {
                 name       = "jenkins-home"
                 mount_path = "/var/jenkins_home"
@@ -71,7 +71,7 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
             volume {
               name = "jenkins-home"
               persistent_volume_claim {
-                claim_name = "jenkins" 
+                claim_name = "jenkins"
               }
             }
             volume {
@@ -90,7 +90,7 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
 # Always restart jenkisn to reflect the changes.
 resource "kubernetes_pod" "jenkins_restore" {
   depends_on = [kubernetes_namespace.jenkins]
-  count = var.jenkins_config.restore_backup ? 1 : 0
+  count      = var.jenkins_config.restore_backup ? 1 : 0
   metadata {
     name      = "jenkins-restore"
     namespace = "jenkins"
@@ -100,17 +100,17 @@ resource "kubernetes_pod" "jenkins_restore" {
       name    = "jenkins-restore"
       image   = "amazonlinux"
       command = ["/bin/bash", "-c"]
-      args = [ 
+      args = [
         "${templatefile("${path.module}/restore.sh", {
-        backup_bucket_name = var.jenkins_config.backup_bucket_name,
-        restore_object_path = var.jenkins_config.restore_object_path
-      })}" ]
+          backup_bucket_name  = var.jenkins_config.backup_bucket_name,
+          restore_object_path = var.jenkins_config.restore_object_path
+      })}"]
       volume_mount {
-        name      = "jenkins-home"
+        name       = "jenkins-home"
         mount_path = "/var/jenkins_home"
       }
       volume_mount {
-        name      = "restore"
+        name       = "restore"
         mount_path = "/restore"
       }
     }

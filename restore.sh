@@ -39,5 +39,3 @@ chown -R 1000:1000 /restore/var
 cp -avr /restore/var/jenkins_home/. /var/jenkins_home
 
 # sleep 500;
-
-
