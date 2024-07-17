@@ -30,4 +30,3 @@ controller:
               operator: In
               values:
               - "true"
-

@@ -20,6 +20,7 @@ This module is compatible with EKS, AKS & GKE which is great news for users depl
 | :-----:                       |         :---                |
 | **4.2.15**                     |    **1.23,1.24,1.25,1.26,1.27**           |
 | **4.5.0**                     |    **1.23,1.24,1.25,1.26,1.27**           |
+| **5.2.2**                     |    **1.23,1.24,1.25,1.26,1.27,1.28,1.29,1.30**           |
 
 
 ## Usage Example
@@ -32,6 +33,10 @@ module "jenkins" {
     values_yaml         = ""
     storage_class_name  = "storage_name"
     jenkins_volume_size = "50Gi"
+    enable_backup       = true
+    backup_bucket_name  = "jenkins-backup-bucket"
+    restore_backup      = false
+    restore_object_path = "s3://jenkins-backup-bucket/2024-06-18/backup.zip"
   }
 }
 
@@ -42,6 +47,20 @@ module "jenkins" {
 
 ## IAM Permissions
 The required IAM permissions to create resources from this module can be found [here](https://github.com/sq-ia/terraform-kubernetes-jenkins/blob/main/IAM.md)
+
+
+## Backup and Restore
+This repository provides a method for backing up and restoring Jenkins using S3 storage.
+
+<b>Usage</b> <br>
+To enable backup, set the <b>enable_backup</b> variable to true. Backups will be automatically stored in the configured S3 bucket.
+
+To restore a backup, set the <b>restore_backup</b> variable to true. This will initiate the restoration process from the latest backup available in the S3 bucket.
+
+<b>Important Notes</b> <br>
+<ul><li>Ensure to restart the Jenkins service after performing a restore to apply the restored configuration and data.</li>
+<li>Backup and restore functionality relies on proper configuration of S3 credentials and bucket permissions.</li></ul>
+
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -65,15 +84,17 @@ No modules.
 | Name | Type |
 |------|------|
 | [helm_release.jenkins](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_cron_job_v1.jenkins_backup_cron](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/cron_job_v1) | resource |
 | [kubernetes_namespace.jenkins](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
+| [kubernetes_pod.jenkins_restore](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/pod) | resource |
 | [kubernetes_secret.jenkins](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"4.2.15"` | no |
-| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"5.2.2"` | no |
+| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "backup_bucket_name": "",<br>  "enable_backup": true,<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "restore_backup": false,<br>  "restore_object_path": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Jenkins deployment will be deployed. | `string` | `"jenkins"` | no |
 
 ## Outputs
