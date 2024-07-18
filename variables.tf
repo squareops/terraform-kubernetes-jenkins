@@ -2,15 +2,14 @@ variable "jenkins_config" {
   type = any
   default = {
     name                = ""
-    region              = ""
     environment         = ""
+    oidc_provider       = ""
     hostname            = ""
     storage_class_name  = ""
     jenkins_volume_size = ""
     values_yaml         = ""
     enable_backup       = false
     backup_schedule     = ""
-    service_account     = ""
     backup_bucket_name  = ""
     restore_backup      = false
     backup_restore_date = ""

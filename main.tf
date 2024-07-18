@@ -1,6 +1,73 @@
+data "aws_caller_identity" "current" {}
+
 resource "kubernetes_namespace" "jenkins" {
   metadata {
     name = "jenkins"
+  }
+}
+
+resource "aws_iam_role" "jenkins_backup_role" {
+  depends_on = [kubernetes_namespace.jenkins]
+  name       = format("%s-%s-%s", var.jenkins_config.environment, var.jenkins_config.name, "jenkins-backup-role")
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${var.jenkins_config.oidc_provider}"
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "${var.jenkins_config.oidc_provider}:aud" = "sts.amazonaws.com",
+            "${var.jenkins_config.oidc_provider}:sub" = "system:serviceaccount:jenkins:sa-jenkins"
+          }
+        }
+      }
+    ]
+  })
+  inline_policy {
+    name = "AllowS3PutObject"
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action = [
+            "kms:DescribeCustomKeyStores",
+            "kms:ListKeys",
+            "kms:DeleteCustomKeyStore",
+            "kms:GenerateRandom",
+            "kms:UpdateCustomKeyStore",
+            "kms:ListAliases",
+            "kms:DisconnectCustomKeyStore",
+            "kms:CreateKey",
+            "kms:ConnectCustomKeyStore",
+            "kms:CreateCustomKeyStore"
+          ]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "s3:*",
+            "s3-object-lambda:*"
+          ],
+          "Resource" : "*"
+        }
+      ]
+    })
+  }
+}
+
+resource "kubernetes_service_account" "sa_jenkins" {
+  metadata {
+    name      = "sa-jenkins"
+    namespace = "jenkins"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.jenkins_backup_role.arn
+    }
   }
 }
 
@@ -50,7 +117,7 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
         template {
           metadata {}
           spec {
-            service_account_name = var.jenkins_config.service_account
+            service_account_name = kubernetes_service_account.sa_jenkins.metadata[0].name
             container {
               name    = "jenkins-backup"
               image   = "amazonlinux"
@@ -113,7 +180,7 @@ resource "kubernetes_pod" "jenkins_restore" {
     namespace = "jenkins"
   }
   spec {
-    service_account_name = var.jenkins_config.service_account
+    service_account_name = kubernetes_service_account.sa_jenkins.metadata[0].name
     container {
       name    = "jenkins-restore"
       image   = "amazonlinux"

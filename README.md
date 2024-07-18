@@ -75,6 +75,7 @@ No requirements.
 
 | Name | Version |
 |------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | n/a |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | n/a |
 | <a name="provider_time"></a> [time](#provider\_time) | n/a |
@@ -87,11 +88,14 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_iam_role.jenkins_backup_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [helm_release.jenkins](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [kubernetes_cron_job_v1.jenkins_backup_cron](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/cron_job_v1) | resource |
 | [kubernetes_namespace.jenkins](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace) | resource |
 | [kubernetes_pod.jenkins_restore](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/pod) | resource |
+| [kubernetes_service_account.sa_jenkins](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/service_account) | resource |
 | [time_sleep.wait_120_sec](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [kubernetes_secret.jenkins](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/data-sources/secret) | data source |
 
 ## Inputs
@@ -99,7 +103,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of the Jenkins chart that will be used to deploy Jenkins application. | `string` | `"5.4.2"` | no |
-| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "backup_bucket_name": "",<br>  "backup_restore_date": "",<br>  "backup_schedule": "",<br>  "enable_backup": false,<br>  "environment": "",<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "name": "",<br>  "region": "",<br>  "restore_backup": false,<br>  "service_account": "",<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
+| <a name="input_jenkins_config"></a> [jenkins\_config](#input\_jenkins\_config) | Specify the configuration settings for Jenkins, including the hostname, storage options, and custom YAML values. | `any` | <pre>{<br>  "backup_bucket_name": "",<br>  "backup_restore_date": "",<br>  "backup_schedule": "",<br>  "enable_backup": false,<br>  "environment": "",<br>  "hostname": "",<br>  "jenkins_volume_size": "",<br>  "name": "",<br>  "oidc_provider": "",<br>  "restore_backup": false,<br>  "storage_class_name": "",<br>  "values_yaml": ""<br>}</pre> | no |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Name of the Kubernetes namespace where the Jenkins deployment will be deployed. | `string` | `"jenkins"` | no |
 
 ## Outputs
