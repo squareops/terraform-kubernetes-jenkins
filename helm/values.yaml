@@ -13,7 +13,7 @@ controller:
         allowAnonymousRead: false
 
   installPlugins:
-    - kubernetes:4246.v5a_12b_1fe120e
+    - kubernetes:4253.v7700d91739e5
     - kubernetes-client-api:6.10.0-240.v57880ce8b_0b_2
     - git:5.2.2
     - configuration-as-code:1810.v9b_c30a_249a_4c
@@ -24,7 +24,7 @@ controller:
     - slack:722.vd07f1ea_7ff40
     - prometheus:773.v3b_62d8178eec
     - cloudbees-disk-usage-simple:203.v3f46a_7462b_1a_
-    - workflow-aggregator:596.v8c21c963d92d
+    - workflow-aggregator:600.vb_57cdd26fdd7
     - dependency-check-jenkins-plugin:5.5.0
     - gitlab-plugin:1.8.1
     - slack:722.vd07f1ea_7ff40
@@ -75,7 +75,7 @@ controller:
       requiredDuringSchedulingIgnoredDuringExecution:
         nodeSelectorTerms:
         - matchExpressions:
-            - key: "Infra-Services"
+            - key: "Addons-Services"
               operator: In
               values:
               - "true"

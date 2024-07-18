@@ -27,7 +27,7 @@ unzip awscliv2.zip
 ./aws/install
 
 #Download the jenkins backup file
-aws s3 cp ${restore_object_path} /restore
+aws s3 cp s3://${backup_bucket_name}/${backup_restore_date}/jenkins_home_backup.zip /restore
 
 #Unzip  the jenkins backup file in /restore directory
 unzip  /restore/jenkins_home_backup.zip  -d /restore

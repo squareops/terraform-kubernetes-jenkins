@@ -6,11 +6,11 @@ provider "aws" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = ""
+  name = "testing-grafana"
 }
 
 data "aws_eks_cluster_auth" "cluster" {
-  name = ""
+  name = "testing-grafana"
 }
 
 
