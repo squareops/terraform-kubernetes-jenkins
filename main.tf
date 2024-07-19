@@ -1,6 +1,73 @@
+data "aws_caller_identity" "current" {}
+
 resource "kubernetes_namespace" "jenkins" {
   metadata {
-    name = var.namespace
+    name = "jenkins"
+  }
+}
+
+resource "aws_iam_role" "jenkins_backup_role" {
+  depends_on = [kubernetes_namespace.jenkins]
+  name       = format("%s-%s-%s", var.jenkins_config.environment, var.jenkins_config.name, "jenkins-backup-role")
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Federated = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${var.jenkins_config.oidc_provider}"
+        },
+        Action = "sts:AssumeRoleWithWebIdentity",
+        Condition = {
+          StringEquals = {
+            "${var.jenkins_config.oidc_provider}:aud" = "sts.amazonaws.com",
+            "${var.jenkins_config.oidc_provider}:sub" = "system:serviceaccount:jenkins:sa-jenkins"
+          }
+        }
+      }
+    ]
+  })
+  inline_policy {
+    name = "AllowS3PutObject"
+    policy = jsonencode({
+      Version = "2012-10-17"
+      Statement = [
+        {
+          Action = [
+            "kms:DescribeCustomKeyStores",
+            "kms:ListKeys",
+            "kms:DeleteCustomKeyStore",
+            "kms:GenerateRandom",
+            "kms:UpdateCustomKeyStore",
+            "kms:ListAliases",
+            "kms:DisconnectCustomKeyStore",
+            "kms:CreateKey",
+            "kms:ConnectCustomKeyStore",
+            "kms:CreateCustomKeyStore"
+          ]
+          Effect   = "Allow"
+          Resource = "*"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "s3:*",
+            "s3-object-lambda:*"
+          ],
+          "Resource" : "*"
+        }
+      ]
+    })
+  }
+}
+
+resource "kubernetes_service_account" "sa_jenkins" {
+  metadata {
+    name      = "sa-jenkins"
+    namespace = "jenkins"
+    annotations = {
+      "eks.amazonaws.com/role-arn" = aws_iam_role.jenkins_backup_role.arn
+    }
   }
 }
 
@@ -30,7 +97,6 @@ data "kubernetes_secret" "jenkins" {
   }
 }
 
-
 #Created a jenkins backup cronjob, internally uses jenkins master pvc to make a zip file and upload it to s3.
 #To use this please create a S3 bucket and pass the name of the bucket along with other varaibles.
 resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
@@ -41,15 +107,17 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
     namespace = "jenkins"
   }
   spec {
-    schedule = "0 6 * * *" # Runs the job every day at 6 AM
+    schedule = var.jenkins_config.backup_schedule
     job_template {
       metadata {
-        name = "jenkins-backup-job"
+        name      = "jenkins-backup-job"
+        namespace = "jenkins"
       }
       spec {
         template {
           metadata {}
           spec {
+            service_account_name = kubernetes_service_account.sa_jenkins.metadata[0].name
             container {
               name    = "jenkins-backup"
               image   = "amazonlinux"
@@ -78,6 +146,18 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
               name = "backup"
               empty_dir {}
             }
+            affinity {
+              pod_affinity {
+                required_during_scheduling_ignored_during_execution {
+                  label_selector {
+                    match_labels = {
+                      "app.kubernetes.io/name" = "jenkins"
+                    }
+                  }
+                  topology_key = "kubernetes.io/hostname"
+                }
+              }
+            }
           }
         }
       }
@@ -85,17 +165,22 @@ resource "kubernetes_cron_job_v1" "jenkins_backup_cron" {
   }
 }
 
+resource "time_sleep" "wait_120_sec" {
+  depends_on      = [helm_release.jenkins]
+  create_duration = "120s"
+}
 
 # Creating a pod for jenkins restore, which will get the backup.zip from S3 and overwrite the content to jenkins home directory.
 # Always restart jenkisn to reflect the changes.
 resource "kubernetes_pod" "jenkins_restore" {
-  depends_on = [kubernetes_namespace.jenkins]
+  depends_on = [kubernetes_namespace.jenkins, time_sleep.wait_120_sec]
   count      = var.jenkins_config.restore_backup ? 1 : 0
   metadata {
     name      = "jenkins-restore"
     namespace = "jenkins"
   }
   spec {
+    service_account_name = kubernetes_service_account.sa_jenkins.metadata[0].name
     container {
       name    = "jenkins-restore"
       image   = "amazonlinux"
@@ -103,7 +188,7 @@ resource "kubernetes_pod" "jenkins_restore" {
       args = [
         "${templatefile("${path.module}/restore.sh", {
           backup_bucket_name  = var.jenkins_config.backup_bucket_name,
-          restore_object_path = var.jenkins_config.restore_object_path
+          backup_restore_date = var.jenkins_config.backup_restore_date
       })}"]
       volume_mount {
         name       = "jenkins-home"
@@ -114,7 +199,6 @@ resource "kubernetes_pod" "jenkins_restore" {
         mount_path = "/restore"
       }
     }
-
     restart_policy = "Never"
     volume {
       name = "jenkins-home"
@@ -125,6 +209,18 @@ resource "kubernetes_pod" "jenkins_restore" {
     volume {
       name = "restore"
       empty_dir {}
+    }
+    affinity {
+      pod_affinity {
+        required_during_scheduling_ignored_during_execution {
+          label_selector {
+            match_labels = {
+              "app.kubernetes.io/name" = "jenkins"
+            }
+          }
+          topology_key = "kubernetes.io/hostname"
+        }
+      }
     }
   }
 }
