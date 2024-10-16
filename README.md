@@ -28,7 +28,7 @@ This module is compatible with EKS, AKS & GKE which is great news for users depl
 
 ```hcl
 module "jenkins" {
-  source        = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
+  source        = "https://github.com/squareops/terraform-kubernetes-jenkins.git"
   jenkins_config = {
     hostname            = "jenkins.squareops.in"
     values_yaml         = file("./helm/values.yaml")
