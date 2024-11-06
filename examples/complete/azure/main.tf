@@ -10,7 +10,8 @@ locals {
 }
 
 module "jenkins" {
-  source = "../../../"
+  source = "squareops/jenkins/kubernetes"
+  version = "2.2.2"
   jenkins_config = {
     hostname            = "jenkins.squareops.in"
     values_yaml         = file("./helm/values.yaml")

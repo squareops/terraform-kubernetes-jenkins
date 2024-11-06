@@ -15,7 +15,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | https://github.com/squareops/terraform-kubernetes-jenkins.git | n/a |
+| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | squareops/jenkins/kubernetes | n/a |
 
 ## Resources
 
@@ -49,7 +49,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | https://github.com/sq-ia/terraform-kubernetes-jenkins.git | n/a |
+| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | squareops/jenkins/kubernetes | n/a |
 
 ## Resources
 
