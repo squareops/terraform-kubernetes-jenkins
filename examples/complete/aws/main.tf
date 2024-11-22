@@ -34,7 +34,8 @@ module "s3_bucket_jenkins_backup" {
 
 
 module "jenkins" {
-  source     = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
+  source     = "squareops/jenkins/kubernetes"
+  version    = "2.2.2"
   depends_on = [module.s3_bucket_jenkins_backup]
   jenkins_config = {
     name                = local.name
