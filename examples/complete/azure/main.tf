@@ -1,6 +1,6 @@
 locals {
   name        = "jenkins"
-  region      = "eastus"
+  region      = ""
   environment = "prod"
   additional_tags = {
     Owner      = "organization_name"
@@ -10,7 +10,8 @@ locals {
 }
 
 module "jenkins" {
-  source = "https://github.com/sq-ia/terraform-kubernetes-jenkins.git"
+  source = "squareops/jenkins/kubernetes"
+  version = "2.2.2"
   jenkins_config = {
     hostname            = "jenkins.squareops.in"
     values_yaml         = file("./helm/values.yaml")

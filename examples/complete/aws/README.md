@@ -14,7 +14,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | https://github.com/sq-ia/terraform-kubernetes-jenkins.git | n/a |
+| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) |squareops/jenkins/kubernetes | n/a |
 
 ## Resources
 
@@ -48,7 +48,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | https://github.com/sq-ia/terraform-kubernetes-jenkins.git | n/a |
+| <a name="module_jenkins"></a> [jenkins](#module\_jenkins) | squareops/jenkins/kubernetes | n/a |
 | <a name="module_s3_bucket_jenkins_backup"></a> [s3\_bucket\_jenkins\_backup](#module\_s3\_bucket\_jenkins\_backup) | terraform-aws-modules/s3-bucket/aws | 4.1.2 |
 
 ## Resources
