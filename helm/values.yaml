@@ -10,14 +10,14 @@ controller:
     - role-strategy:756.v978cb_392eb_d3
     - bitbucket:241.v6d24a_57f9359
     - aws-codecommit-jobs:0.3.0
-    -  gitlab-plugin:latest
+    - gitlab-plugin:1.9.8
     - github:1.40.0
     - slack:722.vd07f1ea_7ff40
     - prometheus:773.v3b_62d8178eec
     - cloudbees-disk-usage-simple:203.v3f46a_7462b_1a_
     - workflow-aggregator:600.vb_57cdd26fdd7
     - dependency-check-jenkins-plugin:5.5.0
-    - credentials:latest
+    - credentials:1413.va_51c53703df1
     - slack:722.vd07f1ea_7ff40
 
   additionalPlugins:

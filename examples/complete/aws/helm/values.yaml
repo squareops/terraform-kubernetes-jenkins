@@ -6,7 +6,7 @@ controller:
     - configuration-as-code:1932.v75cb_b_f1b_698d
     - bitbucket:241.v6d24a_57f9359
     - aws-codecommit-jobs:0.3.0
-    - gitlab-plugin:latest
+    - gitlab-plugin:1.9.8
     - github:1.40.0
     - slack:722.vd07f1ea_7ff40
     - prometheus:773.v3b_62d8178eec
@@ -14,7 +14,7 @@ controller:
     - workflow-aggregator:600.vb_57cdd26fdd7
     - dependency-check-jenkins-plugin:5.5.0
     - role-strategy:743.v142ea_b_d5f1d3 
-    - credentials:latest
+    - credentials:1413.va_51c53703df1
   resources:
     limits:
       cpu: 1000m
