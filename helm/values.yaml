@@ -1,32 +1,23 @@
 controller:
   JCasC:
-    securityRealm: |-
-      local:
-        allowsSignup: false
-        enableCaptcha: false
-        users:
-        - id: "$${chart-admin-username}"
-          name: "Jenkins Admin"
-          password: "$${chart-admin-password}"
     authorizationStrategy: |-
-      loggedInUsersCanDoAnything:
-        allowAnonymousRead: false
 
   installPlugins:
-    - kubernetes:4253.v7700d91739e5
+    - kubernetes:4324.vfec199a_33512          
     - kubernetes-client-api:6.10.0-240.v57880ce8b_0b_2
-    - git:5.2.2
-    - configuration-as-code:1810.v9b_c30a_249a_4c
+    - git:5.7.0                                
+    - configuration-as-code:1932.v75cb_b_f1b_698d   
+    - role-strategy:756.v978cb_392eb_d3
     - bitbucket:241.v6d24a_57f9359
     - aws-codecommit-jobs:0.3.0
-    - gitlab-plugin:1.8.1
-    - github:1.39.0
+    - gitlab-plugin:1.9.8
+    - github:1.40.0
     - slack:722.vd07f1ea_7ff40
     - prometheus:773.v3b_62d8178eec
     - cloudbees-disk-usage-simple:203.v3f46a_7462b_1a_
     - workflow-aggregator:600.vb_57cdd26fdd7
     - dependency-check-jenkins-plugin:5.5.0
-    - gitlab-plugin:1.8.1
+    - credentials:1413.va_51c53703df1
     - slack:722.vd07f1ea_7ff40
 
   additionalPlugins:
@@ -56,6 +47,7 @@ controller:
       - secretName: jenkins-tls
         hosts:
           - ${hostname}
+
 
   prometheus:
     enabled: true

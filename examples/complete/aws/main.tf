@@ -35,7 +35,7 @@ module "s3_bucket_jenkins_backup" {
 
 module "jenkins" {
   source     = "squareops/jenkins/kubernetes"
-  version    = "2.2.2"
+  version    = "2.3.0"
   depends_on = [module.s3_bucket_jenkins_backup]
   jenkins_config = {
     name                = local.name
